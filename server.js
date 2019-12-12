@@ -22,22 +22,25 @@ app.get("/api/hello", function(req, res) {
   res.json({ greeting: "hello API" });
 });
 
+//handle for base case of no string
+app.get("/api/timestamp", function(req, res) {
+  var json_timestamp = timeStamp.time_converter("");
+  //log json to page
+  res.json(json_timestamp);
+}); 
+
+
 //api endpoint to convert inputed data
 //input: data= unix time or calender time
 //logs json conversion to screen
 app.get("/api/timestamp/:data", function(req, res) {
+  // console.log("data:", req.params.data/length)
   //check to see if parameters were entered
   if (req.params && Object.keys(req.params).length > 0) {
     //convert input data
     var json_timestamp = timeStamp.time_converter(req.params.data);
-    //check if output is correct
-    if (typeof json_timestamp === "object") {
-      //log json to page
-      res.json(json_timestamp);
-    } else {
-      //bad input
-      res.sendStatus(400);
-    }
+    //log json to page
+    res.json(json_timestamp);
   }
 });
 
