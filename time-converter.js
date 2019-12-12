@@ -20,7 +20,12 @@ function isUnix(entry) {
 function time_converter(input) {
   var unix_time;
   var date_time;
-  if(isUnix(input)) {
+  //base case of empty array
+  if (input === "") {
+    //return the current time
+    var unix_time = new Date().getTime();
+    var date_time = unix_to_date(unix_time/ 1000)
+  } else if(isUnix(input)) {
     //is a unix number
     unix_time = input;
     date_time = unix_to_date(input)
@@ -33,7 +38,7 @@ function time_converter(input) {
       date_time = unix_to_date(unix_time / 1000)
     } else {
       //not a proper date - return error
-      return NaN
+      return {error : "Invalid Date" };
     }
   }
   return {unix: unix_time, utc: date_time}
